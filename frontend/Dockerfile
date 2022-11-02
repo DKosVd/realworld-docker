@@ -1,7 +1,7 @@
 #Get image from docker hub -> set workdir -> copy package(-lock).json fron host to container -> install all depend -> 
 # -> copy other files exclude node_modules -> open port 3000 -> cmd 
 
-FROM node:13.12.0-alpine
+FROM node:14.21.0-alpine3.16
 
 WORKDIR /usr/src/app
 
@@ -10,6 +10,11 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+RUN npm run build
+
+RUN npm install -g serve
+
 
 
 # we don't write port and cmd this, because manage state, this bad practise

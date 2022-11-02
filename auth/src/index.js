@@ -15,6 +15,13 @@ app.get('/test', (req, res) => {
 	res.send('All working');
 })
 
+app.get('/currentUser', (req, res) => {
+	res.json({
+		user: '1234',
+		email: 'email@email.email'
+	})
+})
+
 connectDb()
 	.on('error', console.log)
 	.on('disconnect', connectDb)
