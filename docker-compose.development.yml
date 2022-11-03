@@ -2,6 +2,9 @@ version: '3'
 
 services:
   frontend:
+    build: 
+     context: ./frontend
+     dockerfile: Dockerfile.dev
     command: npm run start
     volumes: 
       - ./frontend/src:/usr/src/app/src
@@ -11,3 +14,14 @@ services:
     command: npm run dev
     volumes:
       - ./api/src:/usr/src/app/src
+  auth:
+    command: npm run dev
+    volumes:
+      - ./auth/src:/usr/src/app/src
+  mailer:
+    command: npm run dev
+    volumes:
+      - ./mailer/src:/usr/src/app/src
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf.dev:/etc/nginx/conf.d/nginx.conf

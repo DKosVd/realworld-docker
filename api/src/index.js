@@ -3,7 +3,7 @@ const app = express();
 const axios = require('axios');
 const mongoose = require('mongoose');
 const {connectDb} = require('./helpers/db.js');
-const {port, db, authApiBaseUrl} = require('./helpers/configuration');
+const {port, db, authApiBaseUrl, mailerApiBaseUrl} = require('./helpers/configuration');
 
 const postSchema = new mongoose.Schema({
   name: String
@@ -27,6 +27,14 @@ const startServer = () => {
 	   console.log(posts);
 	})
 }
+
+app.get('/register', (req, res) => {
+	axios.get(mailerApiBaseUrl + '/register').then(resp => {
+		res.json({
+			data: resp.data
+		})
+	}).catch(err => console.log(err))
+})
 
 app.get('/test', (req, res) => {
 	res.send('All working');
